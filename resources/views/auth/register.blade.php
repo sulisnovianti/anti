@@ -1,59 +1,49 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>No Access.</title>
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    
-                    {!! Form::open(['url'=>'/register', 'class'=>'form-horizontal']) !!}
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300" rel="stylesheet" type="text/css">
 
-                    <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
-                    {!! Form::label('name', 'Nama', ['class'=>'col-md-4 control-label']) !!}
-                    <div class="col-md-6">
-                        {!! Form::text('name', null, ['class'=>'form-control']) !!}
-                        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
-                    </div>
-                    </div>
+        <style>
+            html, body {
+                height: 100%;
+            }
 
-                    <div class="form-group{{ $errors->has('email') ? 'has-error' : '' }}">
-                    {!! Form::label('email','Alamat Email', ['class'=>'col-md-4 control-label']) !!}
-                    <div class="col-md-6">
-                        {!! Form::email('email',null, ['class'=>'form-control']) !!}
-                        {!! $errors->first('email','<p class="help-block">:message</p>') !!}
-                    </div>
-                    </div>
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                color: #B0BEC5;
+                display: table;
+                font-weight: 300;
+                font-family: 'Souce Sans Pro';
+            }
 
-                    <div class="form-group{{ $errors->has('password') ? 'has-error' : '' }}">
-                    {!! Form::label('password','Password', ['class'=>'col-md-4 control-label']) !!}
-                    <div class="col-md-6">
-                        {!! Form::password('password', ['class'=>'form-control']) !!}
-                        {!! $errors->first('password','<p class="help-block">:message</p>') !!}
-                    </div>
-                    </div>
+            .container {
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+            }
 
-                    <div class="form-group{{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
-                    {!! Form::label('password_confirmation','Konfirmasi Password', ['class'=>'col-md-4 control-label']) !!}
-                    <div class="col-md-6">
-                    {!! Form::password('password_confirmation', ['class'=>'form-control']) !!}
-                    {!! $errors->first('password_confirmation', '<p class="help-block">:message</p>') !!}
-                    </div>
-                    </div>
+            .content {
+                text-align: center;
+                display: inline-block;
+            }
 
-                    <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i> Daftar
-                                </button>
-                            </div>
-                        </div>
-                        {!! Form::close() !!}
-
-                </div>
+            .title {
+                font-size: 72px;
+                margin-bottom: 40px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="title">:(</div>
+                <p>Maaf, Anda tidak Memiliki Akses untuk Fitur ini.</p>
+                <p><a href="{{ url('/') }}">Kembali ke Halaman Awal</a></p>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+    </body>
+</html>

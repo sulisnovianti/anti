@@ -33,4 +33,10 @@ class HomeController extends Controller
         $barang = DB::table('borrow_logs')->join('barangs','borrow_logs.barangs_id','=','barangs.id')->select('borrow_logs.*','barangs.id as id_b','barangs.nama_barang')->where('borrow_logs.is_returned','=',0)->get();
         return view('peminjam',compact('barang'));
     }
+
+    public function template()
+    {
+    
+        return view('welcome');
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('welcome')
 
 @section('content')
 	<div class="container">
@@ -22,6 +22,7 @@
 							<table class="table">
 								<tr>
 									<td>No</td>
+									<td>Gambar</td>
 									<td>Nama Barang</td>
 									<td>Stok</td>
 									<td colspan="2">Opsi</td>
@@ -32,10 +33,18 @@
 								@foreach($barang as $data)
 								<tr>
 									<td>{{ $no }}</td>
+									<td><img src="{{asset('img/'.$data->cover)}}" height="50px"></td>
 									<td>{{ $data->nama_barang }}</td>
 									<td>{{ $data->amount }}</td>
 									<td><a href="{{ route('barangsbengkel.edit', $data->id) }}" class="btn btn-warning">Edit</a></td>
-									<td><a href="{{ route('barangsbengkel.destroy', $data->id) }}" class="btn btn-danger">Hapus</a></td>
+									<td>
+								<form action="{{route('barangsbengkel.destroy', $data->id)}}" method="POST">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token">
+									<input type="submit" class="btn btn-danger" value="Delete">
+									{{csrf_field()}}
+								</form>
+							</td>
 								</tr>
 								@php
 								$no++;

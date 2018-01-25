@@ -14,6 +14,10 @@ class BarangsLabController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $barang = DB::table('barangs')
@@ -45,10 +49,27 @@ class BarangsLabController extends Controller
             'nama_barang'     =>'required|unique:barangs,nama_barang',
             'amount'    =>'required|numeric']);
 
-        $barang = new Barang;
+         $barang = new Barang;
         $barang->id_jenis = 1;
         $barang->nama_barang = $request->nama_barang;
-        $barang->amount = $request->amount;
+        //isi filed cover juika ada cover yang diupload
+        if($request->hasFile('cover')){
+            //mengambil file yang di upload
+            $uploaded_cover = $request->file('cover');
+            //mengambil extention file
+            $extention = $uploaded_cover->getClientOriginalExtension();
+            //membuat nama file rendom berikut extention
+            $filename = md5(time()).'.'.$extention;
+
+            //menyimpan cover 
+            $destinationPath = public_path(). DIRECTORY_SEPARATOR.'img';
+            $uploaded_cover->move($destinationPath,$filename);
+
+            //mengisi field
+            $barang->cover = $filename;
+        }
+
+       $barang->amount = $request->amount;
         $barang->save();
 
 
@@ -56,7 +77,6 @@ class BarangsLabController extends Controller
 
         return redirect()->route('barangslab.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -92,16 +112,33 @@ class BarangsLabController extends Controller
         $this->validate($request, [
             'nama_barang'     =>'required',
             'amount'    =>'required|numeric']);
-
+        
         $barang = Barang::find($id);
-        $barang->update($request->all());
+        $barang->id_jenis = 1;
+        $barang->nama_barang = $request->nama_barang;
+        //isi filed cover juika ada cover yang diupload
+        if($request->hasFile('cover')){
+            //mengambil file yang di upload
+            $uploaded_cover = $request->file('cover');
+            //mengambil extention file
+            $extention = $uploaded_cover->getClientOriginalExtension();
+            //membuat nama file rendom berikut extention
+            $filename = md5(time()).'.'.$extention;
+
+            //menyimpan cover 
+            $destinationPath = public_path(). DIRECTORY_SEPARATOR.'img';
+            $uploaded_cover->move($destinationPath,$filename);
+
+            //mengisi field
+            $barang->cover = $filename;
+        }
+        $barang->amount = $request->amount;
+        $barang->save();
 
 
         Session::flash("flash_notification",["level"=>"success","message"=>"Berhasil Menyimpan $barang->nama_barang"]);
-
         return redirect()->route('barangslab.index');
     }
-
     /**
      * Remove the specified resource from storage.
      *

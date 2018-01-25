@@ -1,22 +1,9 @@
-@extends('layouts.app')
+@extends('welcome')
 
 @section('content')
 <br><br>
-            <div class="col-md-12">
-                <ul class="breadcrumb">
-                    <li><a href="{{ url('/home') }}">Dashboard</a></li>
-                    <li class="active">Barang</li>
-                </ul>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Barang</h2>
-                    </div>
-                    
                     <div class="panel-body">
-                        <p>
-                            <a class="btn btn-danger pull-right" href="{{ url('/admin/barangs/lab') }}">Laboratorium</a>
-                            <a class="btn btn-warning pull-right" href="{{ url('/admin/barangs/bengkel') }}">Bengkel</a>
-                            <a class="btn btn-info pull-right" href="{{ url('/admin/barangs') }}">Semua</a></p>
+                        
                             <br><br>
                         
                         <div class="table-responsive">
@@ -25,6 +12,7 @@
                                     <td>No</td>
                                     <td>Nama Barang</td>
                                     <td>Stok</td>
+                                    <td>Gambar</td>
                                     <td>Opsi</td>
                                 </tr>
                                 @php
@@ -35,7 +23,10 @@
                                     <td>{{ $no }}</td>
                                     <td>{{ $data->nama_barang }}</td>
                                     <td>{{ $data->amount }}</td>
-                                    <td><a href="{{ route('guest.barangs.borrow', $data->id) }}" class="btn btn-warning">Pinjam</a></td>
+                                    <td><img src="{{asset('img/'.$data->cover.'')}}" width="50" height="50"></td>
+                                    @if($data->amount !=0)
+                                    <td><a href="{{ route('guest.barangs.borrow', $data->id) }}" class="btn btn-flat pink accent-3 waves-effect waves-light white-text">Pinjam</a></td>
+                                    @endif
                                 </tr>
                                 @php
                                 $no++;

@@ -14,6 +14,10 @@ class BarangsBengkelController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $barang = DB::table('barangs')
@@ -48,6 +52,23 @@ class BarangsBengkelController extends Controller
         $barang = new Barang;
         $barang->id_jenis = 2;
         $barang->nama_barang = $request->nama_barang;
+        //isi filed cover juika ada cover yang diupload
+        if($request->hasFile('cover')){
+            //mengambil file yang di upload
+            $uploaded_cover = $request->file('cover');
+            //mengambil extention file
+            $extention = $uploaded_cover->getClientOriginalExtension();
+            //membuat nama file rendom berikut extention
+            $filename = md5(time()).'.'.$extention;
+
+            //menyimpan cover 
+            $destinationPath = public_path(). DIRECTORY_SEPARATOR.'img';
+            $uploaded_cover->move($destinationPath,$filename);
+
+            //mengisi field
+            $barang->cover = $filename;
+        }
+        
         $barang->amount = $request->amount;
         $barang->save();
 
@@ -92,9 +113,28 @@ class BarangsBengkelController extends Controller
         $this->validate($request, [
             'nama_barang'     =>'required',
             'amount'    =>'required|numeric']);
-
+        
         $barang = Barang::find($id);
-        $barang->update($request->all());
+        $barang->id_jenis = 2;
+        $barang->nama_barang = $request->nama_barang;
+        //isi filed cover juika ada cover yang diupload
+        if($request->hasFile('cover')){
+            //mengambil file yang di upload
+            $uploaded_cover = $request->file('cover');
+            //mengambil extention file
+            $extention = $uploaded_cover->getClientOriginalExtension();
+            //membuat nama file rendom berikut extention
+            $filename = md5(time()).'.'.$extention;
+
+            //menyimpan cover 
+            $destinationPath = public_path(). DIRECTORY_SEPARATOR.'img';
+            $uploaded_cover->move($destinationPath,$filename);
+
+            //mengisi field
+            $barang->cover = $filename;
+        }
+        $barang->amount = $request->amount;
+        $barang->save();
 
 
         Session::flash("flash_notification",["level"=>"success","message"=>"Berhasil Menyimpan $barang->nama_barang"]);

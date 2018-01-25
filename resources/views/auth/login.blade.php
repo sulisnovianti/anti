@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.ll')
 
 @section('content')
 <div class="container">
@@ -39,8 +39,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                    <i class="fa fa-btn fa-sign-in"></i><center><span class="glyphicon glyphicon-log-in
-"></span> Login</center>
+                                    <i class="fa fa-btn fa-sign-in"></i><center><span class="glyphicon glyphicon-log-in"></span> Login</center>
                                 </button>
 
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Lupa Password</a>

@@ -11,9 +11,11 @@
 |
 */
 
+
 Route::get('/', 'FrontController@index');
 Route::get('/pinjam/{id}', 'FrontController@pinjam');
 Route::get('/kembali/{id}', 'FrontController@kembali');
+Route::get('query', 'CariController@search');
 
 Auth::routes();
 
@@ -21,6 +23,11 @@ Route::get('/home', 'HomeController@index');
 Route::get('/statistik', 'HomeController@statistik');
 Route::get('/admin/barangs/lab', 'BarangsController@lab');
 Route::get('/admin/barangs/bengkel', 'BarangsController@bengkel');
+Route::get('/user', function(){
+	return view('welcome');
+});
+
+Route::post('/search','FrontController@search');
 
 
 Route::group(['middleware' => 'web'], function () {
@@ -29,8 +36,17 @@ Route::group(['prefix'=>'admin','middleware'=>['auth']], function () {
 	Route::resource('barangs','BarangsController');
 	Route::resource('barangslab','BarangsLabController');
 	Route::resource('barangsbengkel','BarangsBengkelController');
+	Route::resource('user','userController');
 
 	Route::get('barangs/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
+
+	Route::get('barangslab/{barang}/borrow',[
 		'middleware' => ['auth', 'role:member'],
 
 		'as' => 'guest.barangs.borrow',

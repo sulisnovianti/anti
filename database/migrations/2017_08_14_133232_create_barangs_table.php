@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ class CreateBarangsTable extends Migration
             $table->increments('id');
             $table->integer('id_jenis');
             $table->string('nama_barang');
+            $table->string('cover');
             $table->integer('amount')->unsigned();
             $table->timestamps();
         });
