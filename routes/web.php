@@ -21,11 +21,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/statistik', 'HomeController@statistik');
-Route::get('/admin/barangs/lab', 'BarangsController@lab');
-Route::get('/admin/barangs/bengkel', 'BarangsController@bengkel');
+
+Route::get('/admin/barangs/lab', 'BarangsController@lab',[
+		'middleware' => ['auth', 'role:lab']]);
+Route::get('/admin/barangs/bengkel', 'BarangsController@bengkel',[
+		'middleware' => ['auth', 'role:bengkel']]);
+
+Route::get('data','HomeController@search');
 Route::get('/user', function(){
 	return view('welcome');
 });
+
+Route::get('/dashboard', 'statistikController@pinjaman');
+
 
 Route::post('/search','FrontController@search');
 

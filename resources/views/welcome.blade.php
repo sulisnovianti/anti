@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Rental</title>
+    <title>RentalSMKAssalaam</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />    
@@ -178,9 +178,9 @@
            
           </div>
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+          <form action="{{  url(  'data'  ) }}" method="get" class="sidebar-form">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search..."/>
+              <input type="text" name="r" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
                 <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
@@ -189,45 +189,63 @@
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="active treeview">
-              <a href="{{ url('/home') }}">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-             
-            </li>
+            
             <li class="treeview">
 
             <ul class="nav navbar-nav">
                         @if (Auth::check())
-                            <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                            <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                         @endif
                         @role('member')
-                            <li><a href="{{ url('/statistik') }}">Peminjaman</a></li>
+<!--                             <li><a href="{{ url('/statistik') }}">Peminjaman</a></li> -->
                         @endrole
                         @role('admin')
                             <li><a href="{{ route('barangs.index') }}">Barang</a></li>
+                            <li><a href="{{ url('/statistik') }}">Pengembalian</a></li>
                         @endrole
                         @role('lab')
                             <li><a href="{{ route('barangslab.index') }}">Barang</a></li>
+                            <li><a href="{{ url('/statistik') }}">Pengembalian</a></li>
                         @endrole
                         @role('bengkel')
                             <li><a href="{{ route('barangsbengkel.index') }}">Barang</a></li>
+                            <li><a href="{{ url('/statistik') }}">Pengembalian</a></li>
                         @endrole
                     </ul>
 
+                   
+
               <a href="#">
-                <i class="fa fa-files-o"></i>
+                
                 <span>Table</span>
                 <span class="label label-primary pull-right"></span>
               </a>
               <ul class="treeview-menu">
+                @role ('lab')  
+
                 <li><a href="{{ url('/admin/barangs/lab') }}"><i class="fa fa-circle-o"></i> Labolatorium</a></li>
+
+                 <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li>
+
+                @endrole
+                @role ('bengkel')  
                 <li><a href="{{ url('/admin/barangs/bengkel') }}"><i class="fa fa-circle-o"></i> Bengkel</a></li>
+
+                 <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li>
+                @endrole
+                 @role ('admin')  
                 <li><a href="{{ url('/admin/barangs') }}"><i class="fa fa-circle-o"></i> All Barang</a></li>
-                <li><a href="{{ url('/statistik') }}"><i class="fa fa-circle-o"></i> Peminjam</a></li>
+
+                 <li><a href="{{ url('/admin/barangs/lab') }}"><i class="fa fa-circle-o"></i> Labolatorium</a></li>
+
+                <li><a href="{{ url('/admin/barangs/bengkel') }}"><i class="fa fa-circle-o"></i> Bengkel</a></li>
+
                 <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li>
+                  @endrole
                 
-                
+
+               
+
               </ul>
             </li>
             
@@ -243,20 +261,7 @@
       <!-- Content Wrapdasper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            Dashboard
-            <small>Control panel</small>
-          </h1>
-
-         
-
-          <ol class="breadcrumb">
-            <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-          </ol>
-        </section>
-
+       
         <!-- Main content -->
         <section class="content">
           <!-- Small boxes (Stat box) -->
@@ -279,9 +284,9 @@
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 2.0
+          
         </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+        <strong>Aplikasi Rental Alat Produktif </a>.</strong> SMK Assalaam Bandung.
       </footer>
     </div><!-- ./wrapper -->
 

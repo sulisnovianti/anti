@@ -53,17 +53,9 @@
                             <li><a href="{{ url('/home') }}">Dashboard</a></li>
                         @endif
                         @role('member')
-                            <li><a href="{{ url('/statistik') }}">Peminjaman</a></li>
                             
-                            <li>
-                                <form action="{{url('/search')}}" method="post" class="search-form">
-                                    <button name="submit" type="submit" title="Search" class="search-button" hidden="hidden">
-                                    <i class="fa fa-search"></i>
-                                    </button>
-                                    <input name="search_code" type="text" placeholder="Search Barang" class="form-control search-field"></input>
-                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}"></input>
-                                    </ >
-                            </li>
+                            
+                           
                         @endrole
                         @role('admin')
                             <li><a href="{{ route('barangs.index') }}">Barang</a></li>

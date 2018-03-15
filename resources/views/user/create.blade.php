@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     
-
+                {!! Form::open(['url' => route('user.store'),'method' => 'post', 'files'=>'true', 'class'=>'form-horizontal']) !!}
                     <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
                     {!! Form::label('name', 'Nama', ['class'=>'col-md-4 control-label']) !!}
                     <div class="col-md-6">

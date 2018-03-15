@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Barang;
 use DB;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -30,7 +31,7 @@ class HomeController extends Controller
 
     public function statistik()
     {
-        $barang = DB::table('borrow_logs')->join('barangs','borrow_logs.barangs_id','=','barangs.id')->select('borrow_logs.*','barangs.id as id_b','barangs.nama_barang')->where('borrow_logs.is_returned','=',0)->get();
+        $barang = DB::table('borrow_logs')->join('barangs','borrow_logs.barangs_id','=','barangs.id')->join('users','borrow_logs.users_id','=','users.id')->select('borrow_logs.*','barangs.id as id_b','barangs.nama_barang','users.name')->where('borrow_logs.is_returned','=',0)->get();
         return view('peminjam',compact('barang'));
     }
 
@@ -39,4 +40,15 @@ class HomeController extends Controller
     
         return view('welcome');
     }
+
+    public function search(Request $request)
+    {
+            $query = $request->get('r');
+            $barang = Barang::Where('nama_barang','LIKE','%'. $query.'%')->get();
+            // dd($barang);
+            return view('cari',compact('barang'));
+          
+    }
+
+      
 }

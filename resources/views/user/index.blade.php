@@ -22,12 +22,12 @@
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->email }}</td>
                                     <td>{{ $data->password }}</td>
-                                    <td><a href="{{ route('user.edit', $data->id) }}" class="btn btn-warning">Edit</a></td>
+                                    
                                     <td>
                                 <form action="{{route('user.destroy', $data->id)}}" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token">
-                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                    <input type="submit" class="btn btn-info btn-sm" value="Delete">
                                     {{csrf_field()}}
                                 </form>
                             </td>

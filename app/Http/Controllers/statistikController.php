@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class statistikController extends Controller
 {
@@ -53,8 +54,7 @@ class statistikController extends Controller
         ;
         return view('statistics.member')->with(compact('html'));
     }
-}
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -120,5 +120,11 @@ class statistikController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function pinjaman()
+    {
+        $pinjaman = DB::table('borrow_logs')->join('barangs','barangs.id','=','borrow_logs.barangs_id')->join('users','users.id','=','borrow_logs.users_id')->select('barangs.*','users.*')->where('borrow_logs.is_returned','=',0)->get();
+        return view('dashboard',compact('pinjaman'));
     }
 }

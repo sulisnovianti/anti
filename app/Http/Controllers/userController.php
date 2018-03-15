@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 
 class userController extends Controller
 {
@@ -41,14 +43,24 @@ class userController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'email'     =>'required|unique:users,email',
+            'password'    =>'required']);
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request['password']);
-        $user->save();
-        return redirect('user');
 
+        $user->save();
+         $memberRole = Role::where('name','=','member')->first(); 
+        $user->attachRole($memberRole);
+
+                Session::flash("flash_notification",["level"=>"success","message"=>"Anda Sudah Terdaftar Sebagai User"]);
+
+        return redirect()->route('user.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -93,5 +105,12 @@ class userController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+
+        Session::flash("flash_notification",["level"=>"success","message"=>"Berhasil Menghapus User"]);
+
+        return redirect()->route('user.index');
+
     }
 }
