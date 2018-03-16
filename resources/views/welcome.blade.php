@@ -136,8 +136,8 @@
                 <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Daftar</a></li>
+                           <!--  <li><a href="{{ url('/login') }}">Login</a></li>
+                            <li><a href="{{ url('/register') }}">Daftar</a></li> -->
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -224,14 +224,14 @@
                 @role ('lab')  
 
                 <li><a href="{{ url('/admin/barangs/lab') }}"><i class="fa fa-circle-o"></i> Labolatorium</a></li>
-
-                 <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li>
+<!-- 
+                 <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li> -->
 
                 @endrole
                 @role ('bengkel')  
                 <li><a href="{{ url('/admin/barangs/bengkel') }}"><i class="fa fa-circle-o"></i> Bengkel</a></li>
 
-                 <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li>
+                <!--  <li><a href="{{ url('/admin/user') }}"><i class="fa fa-circle-o"></i> User</a></li> -->
                 @endrole
                  @role ('admin')  
                 <li><a href="{{ url('/admin/barangs') }}"><i class="fa fa-circle-o"></i> All Barang</a></li>

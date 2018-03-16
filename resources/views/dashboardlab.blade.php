@@ -18,8 +18,6 @@
 								$no = 1;
 								@endphp
 								@foreach($pinjaman as $data)
-
-								
 								<tr>
 									<td>{{$no}}</td>
 									<td><img src="{{asset('img/'.$data->cover)}}" style="width: 50px"></td>

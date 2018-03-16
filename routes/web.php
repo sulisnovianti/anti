@@ -20,26 +20,27 @@ Route::get('query', 'CariController@search');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
 Route::get('/statistik', 'HomeController@statistik');
 
 Route::get('/admin/barangs/lab', 'BarangsController@lab',[
 		'middleware' => ['auth', 'role:lab']]);
+
 Route::get('/admin/barangs/bengkel', 'BarangsController@bengkel',[
 		'middleware' => ['auth', 'role:bengkel']]);
 
 Route::get('data','HomeController@search');
+
 Route::get('/user', function(){
 	return view('welcome');
 });
 
 Route::get('/dashboard', 'statistikController@pinjaman');
-
-
 Route::post('/search','FrontController@search');
 
 
 Route::group(['middleware' => 'web'], function () {
-Route::group(['prefix'=>'admin','middleware'=>['auth']], function () {
+Route::group(['prefix'=>'admin','middleware'=>['auth','role:admin']], function () {
 	//Route diisi disini ...
 	Route::resource('barangs','BarangsController');
 	Route::resource('barangslab','BarangsLabController');
@@ -62,4 +63,69 @@ Route::group(['prefix'=>'admin','middleware'=>['auth']], function () {
 
 		]);
 });
+
+Route::group(['prefix'=>'admin','middleware'=>['auth','role:lab']], function () {
+	//Route diisi disini ...
+	Route::resource('barangslab','BarangsLabController');
+
+	Route::get('barangs/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
+
+	Route::get('barangslab/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
 });
+
+Route::group(['prefix'=>'admin','middleware'=>['auth','role:bengkel']], function () {
+	//Route diisi disini ...
+	Route::resource('barangsbengkel','BarangsLabController');
+
+	Route::get('barangs/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
+
+	Route::get('barangslab/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
+});
+
+Route::group(['prefix'=>'member','middleware'=>['auth','role:member']], function () {
+	//Route diisi disini ...
+	Route::get('daftarpinjaman','FrontController@daftarpinjaman');
+	Route::get('barangs/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
+
+	Route::get('barangslab/{barang}/borrow',[
+		'middleware' => ['auth', 'role:member'],
+
+		'as' => 'guest.barangs.borrow',
+		'uses' => 'FrontController@pinjam' 
+
+		]);
+});
+
+
+});
+

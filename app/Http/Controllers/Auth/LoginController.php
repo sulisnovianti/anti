@@ -42,8 +42,19 @@ class LoginController extends Controller
         if($user->hasRole(['lab'])){
             return redirect('/admin/barangslab');
         }
+
         else if($user->hasRole(['bengkel'])){
             return redirect('/admin/barangsbengkel');
         }
+
+
+        else if($user->hasRole(['admin'])){
+            return redirect('/admin/barangs');
+        }
+
+        else{
+            return redirect('/home');
+        }
+
     }
 }

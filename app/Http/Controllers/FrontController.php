@@ -69,4 +69,10 @@ class FrontController extends Controller
         return $barang;
         return view('search',compact('barang'));    
     }
+
+    public function daftarpinjaman()
+    {
+        $barang = DB::table('borrow_logs')->join('barangs','barangs.id','=','borrow_logs.barangs_id')->select('barangs.nama_barang','barangs.cover','borrow_logs.created_at as pinjam')->where('borrow_logs.users_id','=',Auth::user()->id)->get();
+        return view('daftarpinjaman',compact('barang'));
+    }
 }
